@@ -45,6 +45,11 @@
   :type 'boolean
   :group 'gotest)
 
+(defcustom go-test-failfast nil
+  "Do not start new tests after the first test failure."
+  :type 'boolean
+  :group 'gotest)
+
 (defvar-local go-test-go-command nil
   "The 'go' command for 'go test' that should be used instead of `go-command'.
 
@@ -376,6 +381,8 @@ For example, if the current buffer is `foo.go', the buffer for
       (setq opts (s-concat go-test-args " " opts)))
     (when go-test-verbose
       (setq opts (s-concat "-v " opts)))
+    (when go-test-failfast
+      (setq opts (s-concat "-failfast " opts)))
     (go-test--get-arguments opts 'go-test-history)))
 
 
